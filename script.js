@@ -17,9 +17,12 @@ function getComputerChoice(){
 } 
 
 
-const computerSelection = getComputerChoice();
-const playerChoice = prompt("Choose rock, paper, or scissor: ");
-const playerSelection = playerChoice.toLowerCase();
+let computerSelection;
+let playerChoice; 
+function getPlayerChoice(){
+    playerChoice = prompt("Choose rock, paper, or scissor: ");
+}
+let playerSelection;
 
 function playRound(computerSelection, playerSelection){
     switch(computerSelection){
@@ -59,9 +62,33 @@ function playRound(computerSelection, playerSelection){
     }
 }
 
-console.log(computerSelection);
-console.log(playerSelection);
-console.log(playRound(computerSelection, playerSelection));
+//console.log(computerSelection);//
+//console.log(playerSelection);//
+// console.log(playRound(computerSelection, playerSelection)); //
 
+let computerScore = 0;
+let playerScore = 0;
 
+while (computerScore < 3 && playerScore < 3){
+    computerSelection = getComputerChoice();
+    getPlayerChoice();
+    playerSelection = playerChoice.toLowerCase();
+    console.log("Computer Selected: " + computerSelection);
+    console.log("You Selected: " + playerSelection);
+    switch(playRound(computerSelection, playerSelection)){
+        case "draw":
+            console.log("You drew! No points.");
+            break;
+        case "win":
+            console.log("You win the round!");
+            playerScore++;
+            break;
+        case "lose":
+            console.log("You lost the round!");
+            computerScore++;
+            break;
+    }
+    console.log("Your score: " + playerScore);
+    console.log("Computer score: " + computerScore);
+}
 
