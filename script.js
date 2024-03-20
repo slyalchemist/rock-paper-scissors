@@ -19,10 +19,48 @@ function getComputerChoice(){
 
 let computerSelection;
 let playerChoice; 
-function getPlayerChoice(){
-    playerChoice = prompt("Choose rock, paper, or scissor: ");
-}
+let computerScore = 0;
+let playerScore = 0;
 let playerSelection;
+
+const btn = document.querySelectorAll("button");
+const container = document.querySelector("#container");
+const comp = document.querySelector(".comp");
+const play = document.querySelector(".play");
+const selections = document.querySelector("#scoresheet");
+const winner = document.querySelector("#winner");
+
+container.appendChild(selections);
+container.appendChild(comp);
+container.appendChild(play);
+container.appendChild(winner);
+
+comp.innerHTML = "Computer Score: " + computerScore;
+play.innerHTML = "Player Score: " + playerScore;
+
+btn.forEach((button) => {
+    button.addEventListener("click", () => {
+        winner.textContent = " ";
+        playerSelection = button.id;
+        computerSelection = getComputerChoice();
+        selections.innerHTML = "You selected " + playerSelection + ". The computer selected " + computerSelection + ".";
+        console.log(`You selected ${playerSelection}. The computer has selected ${computerSelection}.`);
+        checkScore();
+        comp.innerHTML = "Computer Score: " + computerScore;
+        play.innerHTML = "Player Score: " + playerScore;
+        if(computerScore == 5){
+            winner.textContent = "You lost! The computer won! Select an option to play again!";
+            computerScore = 0;
+            playerScore = 0;
+        }
+        else if(playerScore == 5){
+            winner.textContent = "You won! Select an option to play again!";
+            computerScore = 0;
+            playerScore = 0;
+        }
+    });    
+});
+
 
 function playRound(computerSelection, playerSelection){
     switch(computerSelection){
@@ -62,19 +100,7 @@ function playRound(computerSelection, playerSelection){
     }
 }
 
-//console.log(computerSelection);//
-//console.log(playerSelection);//
-// console.log(playRound(computerSelection, playerSelection)); //
-
-let computerScore = 0;
-let playerScore = 0;
-
-while (computerScore < 3 && playerScore < 3){
-    computerSelection = getComputerChoice();
-    getPlayerChoice();
-    playerSelection = playerChoice.toLowerCase();
-    console.log("Computer Selected: " + computerSelection);
-    console.log("You Selected: " + playerSelection);
+function checkScore(){
     switch(playRound(computerSelection, playerSelection)){
         case "draw":
             console.log("You drew! No points.");
@@ -87,8 +113,6 @@ while (computerScore < 3 && playerScore < 3){
             console.log("You lost the round!");
             computerScore++;
             break;
-    }
-    console.log("Your score: " + playerScore);
-    console.log("Computer score: " + computerScore);
+    };
 }
 
